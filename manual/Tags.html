@@ -54,6 +54,7 @@ span.sansserif {font-family: sans-serif; font-weight: normal}
 ul.no-bullet {list-style: none}
 -->
 </style>
+<link rel="stylesheet" type="text/css" href="assets/page.css">
 
 
 </head>
@@ -66,7 +67,7 @@ Next: <a href="File-Refs.html#File-Refs" accesskey="n" rel="next">File Refs</a>,
 </div>
 <hr>
 <a name="Tags-1"></a>
-<h3 class="section">4.2 Tags</h3>
+<h3 class="section">5.2 Tags</h3>
 
 <p>Tags are used as meta-data for files: they facilitate interactions with notes
 where titles are insufficient. For example, tags allow for categorization of
@@ -77,7 +78,7 @@ variable &lsquo;<samp>org-roam-tag-sources</samp>&rsquo;, to control how tags ar
 extraction methods supported are:
 </p>
 <ol>
-<li> &lsquo;<samp>'prop</samp>&rsquo;: This extracts tags from the &lsquo;<samp>#+ROAM_TAGS</samp>&rsquo; property. Tags are space delimited, and can be multi-word using double quotes.
+<li> &lsquo;<samp>'prop</samp>&rsquo;: This extracts tags from the &lsquo;<samp>#+roam_tags</samp>&rsquo; property. Tags are space delimited, and can be multi-word using double quotes.
 </li><li> &lsquo;<samp>'all-directories</samp>&rsquo;: All sub-directories relative to &lsquo;<samp>org-roam-directory</samp>&rsquo; are
 extracted as tags. That is, if a file is located at relative path
 &lsquo;<samp>foo/bar/file.org</samp>&rsquo;, the file will have tags &lsquo;<samp>foo</samp>&rsquo; and &lsquo;<samp>bar</samp>&rsquo;.

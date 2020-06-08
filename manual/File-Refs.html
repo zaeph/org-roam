@@ -54,6 +54,7 @@ span.sansserif {font-family: sans-serif; font-weight: normal}
 ul.no-bullet {list-style: none}
 -->
 </style>
+<link rel="stylesheet" type="text/css" href="assets/page.css">
 
 
 </head>
@@ -66,14 +67,14 @@ Previous: <a href="Tags.html#Tags" accesskey="p" rel="prev">Tags</a>, Up: <a hre
 </div>
 <hr>
 <a name="File-Refs-1"></a>
-<h3 class="section">4.3 File Refs</h3>
+<h3 class="section">5.3 File Refs</h3>
 
 <p>Refs are unique identifiers for files. Each note can only have 1 ref.
 For example, a note for a website may contain a ref:
 </p>
 <div class="example">
-<pre class="example">#+TITLE: Google
-#+ROAM_KEY: https://www.google.com/
+<pre class="example">#+title: Google
+#+roam_key: https://www.google.com/
 </pre></div>
 
 <p>These keys come in useful for when taking website notes, using the
@@ -83,8 +84,8 @@ For example, a note for a website may contain a ref:
 <a href="https://github.com/jkitchin/org-ref">org-ref</a> citation key:
 </p>
 <div class="example">
-<pre class="example">#+TITLE: Neural Ordinary Differential Equations
-#+ROAM_KEY: cite:chen18_neural_ordin_differ_equat
+<pre class="example">#+title: Neural Ordinary Differential Equations
+#+roam_key: cite:chen18_neural_ordin_differ_equat
 </pre></div>
 
 <p>The backlinks buffer will show any cites of this key: e.g.
