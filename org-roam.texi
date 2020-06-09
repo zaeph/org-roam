@@ -23,7 +23,7 @@ General Public License for more details.
 @end quotation
 @end copying
 
-@dircategory emacs
+@dircategory Emacs
 @direntry
 * Org-roam: (org-roam). Rudimentary Roam Replica for Emacs.
 @end direntry
@@ -139,6 +139,7 @@ Ecosystem
 FAQ
 
 * How do I have more than one Org-roam directory?::
+* How do I migrate from Roam Research?::
 
 @end detailmenu
 @end menu
@@ -1059,14 +1060,11 @@ javascript:location.href =
 + encodeURIComponent(document.title)
 @end example
 
-or as a keybinding in @code{qutebrowser}, adding the following to the @code{autoconfig.yml} file:
+or as a keybinding in @code{qutebrowser} in , using the @code{config.py} file (see
+@uref{https://github.com/qutebrowser/qutebrowser/blob/master/doc/help/configuring.asciidoc, Configuring qutebrowser}):
 
 @example
-settings:
-  bindings.commands:
-    global:
-      normal:
-        gc: open javascript:void(location.href='org-protocol://roam-ref?template=r&ref='+encodeURIComponent(location.href)+'&title='+encodeURIComponent(document.title))
+config.bind("<Ctrl-r>", "spawn bash -c 'emacsclient \"org-protocol://roam-ref?template=r&ref=@{url:pretty@}&title=@{title@}\" '")
 @end example
 
 where @code{template} is the template key for a template in
@@ -1317,6 +1315,7 @@ files. Other alternatives include @uref{https://orgmode.org/worg/org-contrib/org
 
 @menu
 * How do I have more than one Org-roam directory?::
+* How do I migrate from Roam Research?::
 @end menu
 
 @node How do I have more than one Org-roam directory?
@@ -1337,6 +1336,11 @@ contain:
 All files within that directory will be treated as their own separate
 set of Org-roam files. Remember to run @samp{org-roam-db-build-cache} from a
 file within that directory, at least once.
+
+@node How do I migrate from Roam Research?
+@section How do I migrate from Roam Research?
+
+Fabio has produced a command-line tool that converts markdown files exported from Roam Research into Org-roam compatible markdown. More instructions are provided @uref{https://github.com/fabioberger/roam-migration, in the repository}.
 
 Emacs 28.0.50 (Org mode 9.4)
 @bye
