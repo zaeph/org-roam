@@ -164,6 +164,15 @@ operating system. You can verify that this is the case by executing:
   (executable-find "sqlite3")
 #+END_SRC
 
+If you have ~sqlite3~ installed, and ~executable-find~ still reports ~nil~, then
+it is likely that the path to the executable is not a member of the Emacs
+variable ~exec-path~. You may rectify this by manually adding the path within
+your Emacs configuration:
+
+#+BEGIN_SRC emacs-lisp
+  (add-to-list 'exec-path "path/to/sqlite3")
+#+END_SRC
+
 * Getting Started
 
 This short tutorial describes the essential commands used in Org-roam, to help
@@ -352,7 +361,9 @@ org-roam's templating system works, it may be useful to look into basic usage of
 =org-capture=.
 
 Org-roam's templates can be customized by modifying the variable
-=org-roam-capture-templates=.
+=org-roam-capture-templates=. Just like the base =org-capture= this variable can
+contain multiple templates, in which case you will be prompted on which one to
+use when capturing a new note.
 
 ** Template Walkthrough
 
@@ -376,9 +387,12 @@ the default template, reproduced below.
 5. ="%?"= is the template inserted on each call to =org-roam-capture--capture=.
    This template means don't insert any content, but place the cursor
    here.
-6. =:file-name= is the file-name template for a new note, if it doesn't
-   yet exist. This creates a file at path that looks like
-   =/path/to/org-roam-directory/20200213032037-foo.org=.
+6. =:file-name= is the file-name template for a new note, if it doesn't yet
+   exist. This creates a file at path that looks like
+   =/path/to/org-roam-directory/20200213032037-foo.org=. This template also
+   allows you to specify if you want the note to go into a subdirectory. For
+   example, the template =private/${slug}= will create notes in
+   =/path/to/org-roam-directory/private=.
 7. =:head= contains the initial template to be inserted (once only), at
    the beginning of the file. Here, the title global attribute is
    inserted.
