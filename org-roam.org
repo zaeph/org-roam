@@ -584,6 +584,15 @@ The entry point to graph creation is =org-roam-graph=.
   2. a function accepting a single argument: the graph file path.
 
   =nil= uses =view-file= to view the graph.
+  
+  If you are using WSL2 and would like to open the graph in Windows, you can use the second option to set the browser and network file path:
+  
+  #+BEGIN_SRC emacs-lisp
+  (setq org-roam-graph-viewer
+      (lambda (file)
+        (let ((org-roam-graph-viewer "/mnt/c/Program Files/Mozilla Firefox/firefox.exe"))
+          (org-roam-graph--open (concat "file://///wsl$/Ubuntu" file)))))
+  #+END_SRC
 
 ** Graph Options
 
@@ -764,6 +773,27 @@ defaults write com.apple.LaunchServices/com.apple.launchservices.secure LSHandle
 
 Then restart your computer.
 
+For Windows, create a temporary =org-protocol.reg= file:
+
+#+BEGIN_SRC text
+REGEDIT4
+
+[HKEY_CLASSES_ROOT\org-protocol]
+@="URL:Org Protocol"
+"URL Protocol"=""
+[HKEY_CLASSES_ROOT\org-protocol\shell]
+[HKEY_CLASSES_ROOT\org-protocol\shell\open]
+[HKEY_CLASSES_ROOT\org-protocol\shell\open\command]
+@="\"C:\\Windows\\System32\\wsl.exe\" emacsclient \"%1\""
+#+END_SRC
+
+The above will forward the protocol to WSL. If you run Emacs natively on Windows, replace the last line with:
+
+#+BEGIN_SRC text
+@="\"c:\\path\\to\\emacs\\bin\\emacsclientw.exe\"  \"%1\""
+#+END_SRC
+
+After executing the .reg file, the protocol is registered and you can delete the file.
 
 ** The =roam-file= protocol
 
@@ -791,7 +821,7 @@ or as a keybinding in ~qutebrowser~ in , using the ~config.py~ file (see
 [[https://github.com/qutebrowser/qutebrowser/blob/master/doc/help/configuring.asciidoc][Configuring qutebrowser]]):
 
 #+BEGIN_SRC python
-config.bind("<Ctrl-r>", "spawn bash -c 'emacsclient \"org-protocol://roam-ref?template=r&ref={url:pretty}&title={title}\" '")
+  config.bind("<Ctrl-r>", "open javascript:location.href='org-protocol://roam-ref?template=r&ref='+encodeURIComponent(location.href)+'&title='+encodeURIComponent(document.title)")
 #+END_SRC
 
 where ~template~ is the template key for a template in
@@ -883,6 +913,18 @@ General Public License for more details.
 ** Ecosystem
 A number of packages work well combined with Org-Roam:
 
+*** Browsing History with winner-mode
+
+~winner-mode~ is a global minor mode that allows one to undo and redo changes in the window configuration. It is included with GNU Emacs since version 20.
+
+~winner-mode~ can be used as a simple version of browser history for Org-roam. Each click through org-roam links (from both Org files and the backlinks buffer) causes changes in window configuration, which can be undone and redone using ~winner-mode~. To use ~winner-mode~, simply enable it, and bind the appropriate interactive functions:
+
+#+BEGIN_SRC emacs-lisp
+  (winner-mode +1)
+  (define-key winner-mode-map (kbd "<M-left>") #'winner-undo)
+  (define-key winner-mode-map (kbd "<M-right>") #'winner-redo)
+
+#+END_SRC
 *** Deft
    :PROPERTIES:
    :CUSTOM_ID: deft
